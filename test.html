@@ -8,19 +8,27 @@
     <script src="jQueryToolTips.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(function() { 
-			$('li').tooltip();
-			$('div').tooltip({ follow: true });
+			$('li a').tooltip(); //container auto defaults to body
+			$('div#test1').tooltip({ follow: true, container: 'hi1' }); //container by selector
+			$('div#test2').tooltip({ follow: true, container: $('#hi2') }); //container by jquery object
 		});
 	</script>
 </head>
 <body>
 	<ul>
-		<li title="I am the best tooltip!">Item 1</li>
-		<li title="NO! I AM!">Item 2</li>
-		<li title="You both are noobs, I am NINJA!">Item 3</li>
+		<li><a href="#" title="I am the best tooltip!">Item 1</a></li>
+		<li><a href="#" title="NO! I AM!">Item 2</a></li>
+		<li><a href="#" title="You both are noobs, I am NINJA!">Item 3</a></li>
 	</ul>
-	<div title="Im a DIV, I pwn you all... EPIC PWNAGE">
-		Mouse over me for the truth.
+	<div id="test1" title="Im a DIV, I pwn you all... EPIC PWNAGE 111">
+		Mouse over me for the truth. 11111
 	</div>
+	<div id="test2" title="Im a DIV, I pwn you all... EPIC PWNAGE 222">
+		Mouse over me for the truth. 22222
+	</div>
+	
+	<div id="hi1"></div>
+	<div id="hi2"></div>
+	
 </body>
 </html>

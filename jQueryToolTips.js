@@ -16,28 +16,39 @@
     *               a custom text provided in parameter.
     *
     *       options [object] [optional]
-    *           A map of settings... { text, width, height, follow, offset { top, left } }
-    *
+    *           A map of settings... { container(string or object), text, width, 
+									   height, follow, offset { top, left } 
+									 }
+	*
     */
     $.fn.tooltip = function (options) {
 
         //this is our html markup for tooltip
         var markup = '<div id="ttContainerDiv" class="ui-corner-all ui-widget-content ui-widget" style="padding:1em;display:none;position:fixed"></div>';
 
-        $(markup).appendTo('body');
-
         var defaults = {
+			container: undefined,
             text: undefined,
             width: undefined,
             height: undefined,
             follow: undefined,
             offset: { top: 10, left: 15 }
-        },
-
-        cont = $('#ttContainerDiv'); //quick access to our containter div
-
-        $.extend(defaults, options); //apply any settings the user may have
-
+        };
+		
+		$.extend(defaults, options); //apply any settings the user may have
+		
+		if (typeof defaults.container === 'string') {
+			$(markup).appendTo(defaults.container);
+		}
+		else if (typeof defaults.container === 'object') {
+			defaults.container.append(markup);
+		}
+		else {
+			$(markup).appendTo('body');
+		}
+		
+		var cont = $('#ttContainerDiv'); //quick access to our containter div
+		
         //loop through our jquery objects
         this.each(function () {
 
