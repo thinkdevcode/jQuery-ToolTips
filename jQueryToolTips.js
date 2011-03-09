@@ -1,5 +1,5 @@
 ﻿// jQuery ToolTips
-// Version: 1.1.0, Last updated: 2/27/2011
+// Version: 1.1.1, Last updated: 2/27/2011
 //
 // GitHub       - https://github.com/thinkdevcode/jQuery-ToolTip
 // Contact      - gin4lyfe@gmail.com (Eugene Alfonso)
@@ -25,6 +25,7 @@
         var defaults = {
             container: undefined,
             img: undefined,
+            imgdim: { height: 300, width: 250 },
             text: undefined,
             width: undefined,
             height: undefined,
@@ -40,7 +41,7 @@
 
             //this is our html markup for tooltip
             var markup = '<div id="ttContainerDiv" class="ui-corner-all ui-widget-content ui-widget" style="padding:1em;display:none;position:fixed"> \
-                        <img src="#" id="ttImage" height="400px" width="250px" /><span id="ttText"></span></div>';
+                        <span id="ttText"></span></div>';
 
             //append the container to other container (default 'body')
             if (typeof defaults.container === 'string') {
@@ -54,7 +55,6 @@
             cont = $('#ttContainerDiv');
         }
 
-        var img = $('#ttImage');
         var span = $('#ttText');
 
         //loop through our jquery objects
@@ -70,12 +70,10 @@
                         $(this).attr('title', ''); //remove the title so original alt doesnt show
                         cont.css({ 'width': '', 'height': '' }); //reset the height and width
                         if (defaults.img) {
-                            img.attr('src', defaults.img);
-                            img.show();
+                            cont.prepend('<img src="' + defaults.img + '" id="ttImage" height="' + defaults.imgdim.height + 'px" width="' + defaults.imgdim.width + 'px" />');
                             span.hide();
                         } else {
                             span.text(((defaults.text) ? defaults.text : tooltiptext));
-                            img.hide();
                             span.show();
                         }
 
@@ -96,10 +94,14 @@
                         if (defaults.follow) { $(this).unbind('mousemove'); }
                         cont.hide();
                         span.text(''); //reset text
+                        if (defaults.img) {
+                            cont.children('img').remove();
+                        }
                         $(this).attr('title', tooltiptext); //return title to what it was before
                     }
                 );
             }
         });
+        return this;
     };
 })(jQuery);
