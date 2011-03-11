@@ -69,6 +69,7 @@
 
                         $(this).attr('title', ''); //remove the title so original alt doesnt show
                         cont.css({ 'width': '', 'height': '' }); //reset the height and width
+                        cont.children('img').remove();
                         if (defaults.img) {
                             cont.prepend('<img src="' + defaults.img + '" id="ttImage" height="' + defaults.imgdim.height + 'px" width="' + defaults.imgdim.width + 'px" />');
                             span.hide();
@@ -94,9 +95,6 @@
                         if (defaults.follow) { $(this).unbind('mousemove'); }
                         cont.hide();
                         span.text(''); //reset text
-                        if (defaults.img) {
-                            cont.children('img').remove();
-                        }
                         $(this).attr('title', tooltiptext); //return title to what it was before
                     }
                 );
